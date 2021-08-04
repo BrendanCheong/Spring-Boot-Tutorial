@@ -1,9 +1,32 @@
 package com.example.demo.student;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+/* Now to Map the Student Class to the database Entity using @Entity
+ * and use an SQL table using @Table
+ * This all uses Hibernate's ORM API to communicate with postgresql
+ * Add @Id, @SequenceGenerator, @GeneratedValue to map "student" class to an SQL database sequence
+ * @Id specifies the primary key of an entity, which means that Id is unique
+ * @SequenceGenerator is to generate a primary key in sequence, allocationSize means that we increment PK id by 1, so its 1,2,3,4...
+ * @GeneratedValue is applied to the PK with Id as an attribute, the strategy is SEQUENCE, where we go from Id = 1,2,3 ..., generator = name of sequence to use
+ */
+
+@Entity
+@Table
 public class Student {
-    private Long id;
+
+    @Id
+    @SequenceGenerator(
+            name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "student_sequence"
+    )
+    private Integer id;
     private String name;
     private String email;
     private LocalDate dob;
@@ -15,7 +38,7 @@ public class Student {
     }
 
     //Constructor for student class everything
-    public Student(Long id, String name, String email, LocalDate dob, Integer age) {
+    public Student(Integer id, String name, String email, LocalDate dob, Integer age) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -32,7 +55,7 @@ public class Student {
     }
     //Getters and Setters below since attributes are private
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -52,7 +75,7 @@ public class Student {
         return age;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

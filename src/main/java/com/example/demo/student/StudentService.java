@@ -14,10 +14,11 @@ import java.util.List;
 @Service
 public class StudentService {
 
+    // this particular function is for @GET request
     public List<Student> getStudents() {
         return List.of(
                 new Student(
-                        1L,
+                        1,
                         "Johny Doe",
                         "JohnDoe@gmail.com",
                         LocalDate.of(1999, Month.JULY, 5),
